@@ -1,0 +1,1 @@
+FROM thecodingmachine/deeployer:latest

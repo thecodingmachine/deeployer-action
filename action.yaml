@@ -1,0 +1,28 @@
+name: 'Deploy with Deeployer'
+description: 'Deploy your application using Deeployer'
+inputs:
+  deeployerFile:
+    description: 'Deeployer file (by default, Deeployer will look for a deeployer.libsonnet or deeployer.json file)'
+    required: false
+  namespace:
+    description: 'Kubernetes namespace to deploy to'
+    required: true
+  timeout:
+    description: 'Maximum time to wait for deployment success before considering it failed (defaults to "600s")'
+    required: false
+    default: '600s'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - deeployer-k8s
+    - apply
+    - "--namespace"
+    - ${{ inputs.namespace }}
+    - "--timeout"
+    - ${{ inputs.timeout }}
+    - ${{ inputs.deeployerFile }}
+
+branding:
+  icon: 'cloud'
+  color: 'green'
